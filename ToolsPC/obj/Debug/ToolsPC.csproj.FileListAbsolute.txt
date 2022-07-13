@@ -12,3 +12,17 @@ C:\ots\CopiaSeg(Estable)\VisualStudio\Proyect_ServiceShutdownPC\ToolsPC\ToolsPC\
 C:\ots\CopiaSeg(Estable)\VisualStudio\Proyect_ServiceShutdownPC\ToolsPC\ToolsPC\bin\Debug\ToolsPC.application
 C:\ots\CopiaSeg(Estable)\VisualStudio\Proyect_ServiceShutdownPC\ToolsPC\ToolsPC\obj\Debug\ToolsPC.exe.manifest
 C:\ots\CopiaSeg(Estable)\VisualStudio\Proyect_ServiceShutdownPC\ToolsPC\ToolsPC\obj\Debug\ToolsPC.application
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\ToolsPC.exe.config
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\ToolsPC.exe.manifest
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\ToolsPC.application
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\ToolsPC.exe
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\ToolsPC.pdb
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.csproj.AssemblyReference.cache
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.ToolsPC.resources
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.Properties.Resources.resources
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.csproj.GenerateResource.cache
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.csproj.CoreCompileInputs.cache
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.exe.manifest
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.application
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.exe
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.pdb

@@ -43,6 +43,7 @@ namespace ToolsPC
             this.dtHoraEjecucion = new System.Windows.Forms.DateTimePicker();
             this.pbEstado = new System.Windows.Forms.ProgressBar();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.cbCancelarApagado = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -106,19 +107,20 @@ namespace ToolsPC
             // 
             this.panel2.BackColor = System.Drawing.Color.LightSteelBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.cbCancelarApagado);
             this.panel2.Controls.Add(this.cbApagar);
             this.panel2.Controls.Add(this.cbReiniciar);
             this.panel2.Controls.Add(this.cbHibernar);
             this.panel2.Controls.Add(this.cbCerrarSesion);
             this.panel2.Location = new System.Drawing.Point(27, 48);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(202, 109);
+            this.panel2.Size = new System.Drawing.Size(243, 109);
             this.panel2.TabIndex = 9;
             // 
             // cbApagar
             // 
             this.cbApagar.AutoSize = true;
-            this.cbApagar.Location = new System.Drawing.Point(70, 12);
+            this.cbApagar.Location = new System.Drawing.Point(13, 12);
             this.cbApagar.Name = "cbApagar";
             this.cbApagar.Size = new System.Drawing.Size(60, 17);
             this.cbApagar.TabIndex = 4;
@@ -129,7 +131,7 @@ namespace ToolsPC
             // cbReiniciar
             // 
             this.cbReiniciar.AutoSize = true;
-            this.cbReiniciar.Location = new System.Drawing.Point(70, 35);
+            this.cbReiniciar.Location = new System.Drawing.Point(13, 35);
             this.cbReiniciar.Name = "cbReiniciar";
             this.cbReiniciar.Size = new System.Drawing.Size(67, 17);
             this.cbReiniciar.TabIndex = 5;
@@ -140,7 +142,7 @@ namespace ToolsPC
             // cbHibernar
             // 
             this.cbHibernar.AutoSize = true;
-            this.cbHibernar.Location = new System.Drawing.Point(70, 81);
+            this.cbHibernar.Location = new System.Drawing.Point(13, 81);
             this.cbHibernar.Name = "cbHibernar";
             this.cbHibernar.Size = new System.Drawing.Size(66, 17);
             this.cbHibernar.TabIndex = 7;
@@ -151,7 +153,7 @@ namespace ToolsPC
             // cbCerrarSesion
             // 
             this.cbCerrarSesion.AutoSize = true;
-            this.cbCerrarSesion.Location = new System.Drawing.Point(70, 58);
+            this.cbCerrarSesion.Location = new System.Drawing.Point(13, 58);
             this.cbCerrarSesion.Name = "cbCerrarSesion";
             this.cbCerrarSesion.Size = new System.Drawing.Size(87, 17);
             this.cbCerrarSesion.TabIndex = 6;
@@ -184,6 +186,17 @@ namespace ToolsPC
             this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // cbCancelarApagado
+            // 
+            this.cbCancelarApagado.AutoSize = true;
+            this.cbCancelarApagado.Location = new System.Drawing.Point(120, 12);
+            this.cbCancelarApagado.Name = "cbCancelarApagado";
+            this.cbCancelarApagado.Size = new System.Drawing.Size(114, 17);
+            this.cbCancelarApagado.TabIndex = 12;
+            this.cbCancelarApagado.Text = "Cancelar Apagado";
+            this.cbCancelarApagado.UseVisualStyleBackColor = true;
+            this.cbCancelarApagado.CheckedChanged += new System.EventHandler(this.cbCancelarApagado_CheckedChanged);
             // 
             // ToolsPC
             // 
@@ -225,6 +238,7 @@ namespace ToolsPC
         private System.Windows.Forms.Label lbContador;
         private System.Windows.Forms.Label lbSegundos;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.CheckBox cbCancelarApagado;
     }
 }
 

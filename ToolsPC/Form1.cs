@@ -18,6 +18,8 @@ namespace ToolsPC
         private System.Windows.Forms.Timer timer1;
         private int tiempo;
         private bool check = false;
+
+
         public ToolsPC()
         {
             InitializeComponent();
@@ -35,10 +37,8 @@ namespace ToolsPC
                 //ProgressBar Inicio 5%
                 pbEstado.Value = 5;
                 //Calculo el tiempo de ejecucion para la cuenta atras
-                List<int> tEjecucion = CalcularHora(dtHoraEjecucion.Value.Hour, dtHoraEjecucion.Value.Minute, dtHoraEjecucion.Value.Second);
+                tiempo = CalcularHora(ConversionHoras(dtHoraEjecucion.Value.Hour, dtHoraEjecucion.Value.Minute, dtHoraEjecucion.Value.Second));
                 //Convierto el tiempo a segundos
-                tiempo = ConversionHoras(tEjecucion[0], tEjecucion[1], tEjecucion[2]);
-                //int tiempo = ConversionHoras(dtHoraEjecucion.Value.Hour, dtHoraEjecucion.Value.Minute, dtHoraEjecucion.Value.Second);
                 string text = "Tarea programada correctamente.";
                 string command = string.Empty;
                 //ProgressBar 55%
@@ -50,6 +50,7 @@ namespace ToolsPC
                     pbEstado.Value += 10;
                     //Obtengo el comando
                     command = "shutdown -s -t " + tiempo.ToString();
+
                     //ProgressBar 80%
                     pbEstado.Value += 15;
                     //Muestro el contador
@@ -62,7 +63,6 @@ namespace ToolsPC
                     timer1.Interval = 1000;
                     timer1.Start();
                     check = true;
-
                 }
                 else if (cbReiniciar.Checked)
                 {
@@ -86,7 +86,7 @@ namespace ToolsPC
                 {
                     //ProgressBar final 88%
                     pbEstado.Value = 88;
-                    text = "Debes seleccionar al menos una opción";
+                    text = "No has seleccionado ninguna opción";
                     //Muestro mensaje de proceso no finalizado
                     MessageBox.Show(text);
                     //ProgressBar 0%
@@ -104,8 +104,17 @@ namespace ToolsPC
                     //ProgressBar final 0%
                     pbEstado.Value = 0;
                     //Inicio el comando
-                    Process.Start("cmd.exe", command);
-                    Application.Exit();
+                    Process cmd = new Process();
+                    cmd.StartInfo.FileName = "cmd.exe";
+                    cmd.StartInfo.RedirectStandardInput = true;
+                    cmd.StartInfo.RedirectStandardOutput = true;
+                    cmd.StartInfo.CreateNoWindow = true;
+                    cmd.StartInfo.UseShellExecute = false;
+                    cmd.Start();
+                    cmd.StandardInput.WriteLine(command);
+                    cmd.StandardInput.Flush();
+                    cmd.StandardInput.Close();
+                    //Application.Exit();
                 }
             }
             catch (Exception ex)
@@ -143,38 +152,26 @@ namespace ToolsPC
         }
 
         /// <summary>
-        /// Metodo para calcular la hora exacta de ejecución
+        ///  Metodo para calcular la hora exacta de ejecución
         /// </summary>
-        /// <param name="hora"></param>
-        /// <param name="min"></param>
-        /// <param name="seg"></param>
+        /// <param name="segundos"></param>
         /// <returns></returns>
-        private List<int> CalcularHora(int hora, int min, int seg)
+        private int CalcularHora(int segundos)
         {
-            List<int> tiempo = new List<int>();
+            //ProgressBar 10%
+            pbEstado.Value += 5;
+            int tActual = ConversionHoras(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            int resultado = tActual - segundos;
 
-            int hActual = DateTime.Now.Hour;
-            int mActual = DateTime.Now.Minute;
-            int sActual = DateTime.Now.Second;
-
-            tiempo.Add(hora - hActual);
-            tiempo.Add(min - mActual);
-            tiempo.Add(seg - sActual);
-
-            if (tiempo[0] < 0 || tiempo[1] < 0 || tiempo[2] < 0)
+            if (resultado < 0)
             {
-                //invertir tiempo
-                tiempo[0] = Math.Abs(tiempo[0]);
-                tiempo[1] = Math.Abs(tiempo[1]);
-                tiempo[2] = Math.Abs(tiempo[2]);
-                //Calcular hora. 
-                tiempo[0] = 23 - tiempo[0];
-                tiempo[1] = 59 - tiempo[1];
-                tiempo[2] = 59 - tiempo[2];
-               
+                resultado = Math.Abs(resultado);
             }
+            
 
-            return tiempo ;
+            //ProgressBar 20%
+            pbEstado.Value += 10;
+            return resultado;
         }
 
         /// <summary>
@@ -186,11 +183,9 @@ namespace ToolsPC
         /// <returns></returns>
         private int ConversionHoras(int horas, int minutos, int segundos)
         {
-            //ProgressBar 10%
-            pbEstado.Value += 5;
+          
             int resultado = (horas * 3600) + (minutos * 60) + segundos;
-            //ProgressBar 20%
-            pbEstado.Value += 10;
+            
             return resultado;
         }
         #endregion
@@ -203,12 +198,14 @@ namespace ToolsPC
                 cbReiniciar.Enabled = false;
                 cbHibernar.Enabled = false;
                 cbCerrarSesion.Enabled = false;
+                cbCancelarApagado.Enabled = false;
             }
             else
             {
                 cbReiniciar.Enabled = true;
                 cbHibernar.Enabled = true;
-                cbCerrarSesion.Enabled = true;                
+                cbCerrarSesion.Enabled = true;
+                cbCancelarApagado.Enabled = true;
             }
         }
 
@@ -219,12 +216,14 @@ namespace ToolsPC
                 cbApagar.Enabled = false;
                 cbHibernar.Enabled = false;
                 cbCerrarSesion.Enabled = false;
+                cbCancelarApagado.Enabled = false;
             }
             else
             {
                 cbApagar.Enabled = true;
                 cbHibernar.Enabled = true;
                 cbCerrarSesion.Enabled = true;
+                cbCancelarApagado.Enabled = true;
             }
         }
 
@@ -235,16 +234,16 @@ namespace ToolsPC
                 cbReiniciar.Enabled = false;
                 cbHibernar.Enabled = false;
                 cbApagar.Enabled = false;
+                cbCancelarApagado.Enabled = false;
             }
             else
             {
                 cbReiniciar.Enabled = true;
                 cbHibernar.Enabled = true;
                 cbApagar.Enabled = true;
+                cbCancelarApagado.Enabled = true;
             }
         }
-
-      
 
         private void cbHibernar_CheckedChanged(object sender, EventArgs e)
         {
@@ -253,17 +252,37 @@ namespace ToolsPC
                 cbReiniciar.Enabled = false;
                 cbApagar.Enabled = false;
                 cbCerrarSesion.Enabled = false;
+                cbCancelarApagado.Enabled = false;
             }
             else
             {
                 cbReiniciar.Enabled = true;
                 cbApagar.Enabled = true;
                 cbCerrarSesion.Enabled = true;
+                cbCancelarApagado.Enabled = true;
             }
         }
 
+        private void cbCancelarApagado_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCancelarApagado.Checked)
+            {
+                cbApagar.Enabled = false;
+                cbReiniciar.Enabled = false;
+                cbHibernar.Enabled = false;
+                cbCerrarSesion.Enabled = false;
+            }
+            else
+            {
+                cbApagar.Enabled = true;
+                cbReiniciar.Enabled = true;
+                cbHibernar.Enabled = true;
+                cbCerrarSesion.Enabled = true;
+            }
+        }
         #endregion
 
+        #region BackgroundWorker
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
        
@@ -331,7 +350,6 @@ namespace ToolsPC
 
             return result;
         }
-
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Cancelled)
@@ -352,7 +370,7 @@ namespace ToolsPC
                 MessageBox.Show(msg);
             }
         }
+        #endregion
 
-   
     }
 }
