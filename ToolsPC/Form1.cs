@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -16,13 +17,20 @@ namespace ToolsPC
     {
         private string info = string.Empty;
         private System.Windows.Forms.Timer timer1;
-        private int tiempo;
+        private int tiempo, hApagado;
         private bool check = false;
 
 
         public ToolsPC()
         {
             InitializeComponent();
+            if (File.Exists("timer.txt"))
+            {
+                WriteGetTimer(null, true);
+                pCuentaAtras.Visible = true;
+                pbEstado.Value = 0;
+            }
+
         }
 
         private void Aceptar_Click(object sender, EventArgs e)
@@ -37,9 +45,11 @@ namespace ToolsPC
                 //ProgressBar Inicio 5%
                 pbEstado.Value = 5;
                 //Calculo el tiempo de ejecucion para la cuenta atras
-                tiempo = CalcularHora(ConversionHoras(dtHoraEjecucion.Value.Hour, dtHoraEjecucion.Value.Minute, dtHoraEjecucion.Value.Second));
+                hApagado = ConversionHoras(dtHoraEjecucion.Value.Hour, dtHoraEjecucion.Value.Minute, dtHoraEjecucion.Value.Second);
+                tiempo = CalcularHora(hApagado);
+                
                 //Convierto el tiempo a segundos
-                string text = "Tarea programada correctamente.";
+                string text = string.Empty;
                 string command = string.Empty;
                 //ProgressBar 55%
                 pbEstado.Value += 35;
@@ -54,14 +64,17 @@ namespace ToolsPC
                     //ProgressBar 80%
                     pbEstado.Value += 15;
                     //Muestro el contador
-                    lbContador.Visible = true;
-                    lbSegundos.Visible = true;
+                    pCuentaAtras.Visible = true;
+                    //lbMin.Visible = true;
+                    //lbHoras.Visible = true;
 
                     //Creo un evento para la cuenta atrás
                     timer1 = new System.Windows.Forms.Timer();
                     timer1.Tick += new EventHandler(Contador);
                     timer1.Interval = 1000;
                     timer1.Start();
+                    //Guardo el tiempo restante en un fichero 
+                    WriteGetTimer(hApagado, false);
                     check = true;
                 }
                 else if (cbReiniciar.Checked)
@@ -82,6 +95,11 @@ namespace ToolsPC
                     command = "shutdown -h";
                     check = true;
                 }
+                else if (cbCancelarApagado.Checked)
+                {
+                    command = "shutdown /a";
+                    check = true;
+                }
                 else
                 {
                     //ProgressBar final 88%
@@ -93,14 +111,13 @@ namespace ToolsPC
                     pbEstado.Value = 0;
                 }
 
+                
                 //Si todo está correcto, se inicia el proceso
                 if (check)
                 {
-                    this.backgroundWorker1.RunWorkerAsync(2000);
+                    //this.backgroundWorker1.RunWorkerAsync(2000);
                     //ProgressBar 100%
                     pbEstado.Value += 20;
-                    //Muestro mensaje de ejecutado con exito
-                    MessageBox.Show(text);
                     //ProgressBar final 0%
                     pbEstado.Value = 0;
                     //Inicio el comando
@@ -114,7 +131,7 @@ namespace ToolsPC
                     cmd.StandardInput.WriteLine(command);
                     cmd.StandardInput.Flush();
                     cmd.StandardInput.Close();
-                    //Application.Exit();
+                    Application.Exit();
                 }
             }
             catch (Exception ex)
@@ -128,6 +145,40 @@ namespace ToolsPC
                 //ProgressBar 0%
                 pbEstado.Value = 0;
             }
+        }
+
+        private void WriteGetTimer(int? tiempo, bool get)
+        {
+            try
+            {
+                if (get)
+                {
+                    StreamReader inputFile = new StreamReader("timer.txt");
+
+                    this.tiempo = CalcularHora(int.Parse(inputFile.ReadLine()));
+
+                    inputFile.Close();
+
+                    //Creo un evento para la cuenta atrás
+                    timer1 = new System.Windows.Forms.Timer();
+                    timer1.Tick += new EventHandler(Contador);
+                    timer1.Interval = 1000;
+                    timer1.Start();
+
+                }
+                else
+                {
+                    StreamWriter outputFile = new StreamWriter("timer.txt");
+
+                    outputFile.WriteLine(tiempo);
+
+                    outputFile.Close();
+                }
+            }
+            catch (Exception) { }
+
+            
+            
         }
 
         #region Metodos auxiliares
@@ -147,7 +198,13 @@ namespace ToolsPC
             else if (tiempo > 0)
             {
                 tiempo--;
-                lbContador.Text = tiempo.ToString();
+                int h = (tiempo / 3600);
+                int m = ((tiempo - h * 3600) / 60);
+                int s = tiempo - (h* 3600 + m * 60);
+
+                lbHoras.Text = h.ToString()+"h";
+                lbMin.Text = m.ToString()+"m";
+                lbSeg.Text = s.ToString() + "s";
             }
         }
 

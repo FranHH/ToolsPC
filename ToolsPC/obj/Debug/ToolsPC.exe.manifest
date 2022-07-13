@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ToolsPC.exe" size="36800">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ToolsPC.exe" size="38336">
       <assemblyIdentity name="ToolsPC" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kA2jcbPY7QptYzA2WcEwb/2oHmpcHq55+my9myaYzfw=</dsig:DigestValue>
+        <dsig:DigestValue>KF06NDQ2MxlHifMYF9TDZhE8nHs2KJ+qgtTRa9k/T2Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
