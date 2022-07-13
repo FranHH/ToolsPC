@@ -24,13 +24,17 @@ namespace ToolsPC
         public ToolsPC()
         {
             InitializeComponent();
-            if (File.Exists("timer.txt"))
-            {
-                WriteGetTimer(null, true);
-                pCuentaAtras.Visible = true;
-                pbEstado.Value = 0;
-            }
 
+            try
+            {
+                if (File.Exists("timer.txt"))
+                {
+                    WriteGetTimer(null, true);
+                    pCuentaAtras.Visible = true;
+                    pbEstado.Value = 0;
+                }
+            }
+            catch(Exception){}
         }
 
         private void Aceptar_Click(object sender, EventArgs e)
@@ -73,7 +77,7 @@ namespace ToolsPC
                     timer1.Tick += new EventHandler(Contador);
                     timer1.Interval = 1000;
                     timer1.Start();
-                    //Guardo el tiempo restante en un fichero 
+                    //Guardo la hora de apagado en un fichero 
                     WriteGetTimer(hApagado, false);
                     check = true;
                 }
@@ -99,6 +103,12 @@ namespace ToolsPC
                 {
                     command = "shutdown /a";
                     check = true;
+                    //Borro fichero de hora de apagado
+                    try
+                    {
+                        File.Delete("timer.txt");
+                    }
+                    catch (Exception) { }
                 }
                 else
                 {
