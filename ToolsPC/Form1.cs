@@ -19,6 +19,7 @@ namespace ToolsPC
         private System.Windows.Forms.Timer timer1;
         private int tiempo, hApagado;
         private bool check = false;
+        private DateTime hGuardada;
 
 
         public ToolsPC()
@@ -30,8 +31,6 @@ namespace ToolsPC
                 if (File.Exists("timer.txt"))
                 {
                     WriteGetTimer(null, true);
-                    pCuentaAtras.Visible = true;
-                    pbEstado.Value = 0;
                 }
             }
             catch(Exception){}
@@ -77,8 +76,9 @@ namespace ToolsPC
                     timer1.Tick += new EventHandler(Contador);
                     timer1.Interval = 1000;
                     timer1.Start();
-                    //Guardo la hora de apagado en un fichero 
-                    WriteGetTimer(hApagado, false);
+                    //Guardo la hora de apagado junto a la fecha en la que se crea, en un fichero 
+                    string datosDeApagado = DateTime.Now.ToString("d") + "\n" + hApagado;
+                    WriteGetTimer(datosDeApagado, false);
                     check = true;
                 }
                 else if (cbReiniciar.Checked)
@@ -157,26 +157,41 @@ namespace ToolsPC
             }
         }
 
-        private void WriteGetTimer(int? tiempo, bool get)
+        private void WriteGetTimer(string tiempo, bool get)
         {
             try
             {
+                //Si quiero obtener datos, leo el fichero.
                 if (get)
                 {
                     StreamReader inputFile = new StreamReader("timer.txt");
+                    string line = inputFile.ReadLine();
+                    
+                    //Si el fichero contiene la fecha de ayer, lo elimino.
+                    if (line.Equals(DateTime.Now.AddDays(-1).ToString("d")))
+                    {
+                        File.Delete("timer.txt");
+                        pCuentaAtras.Visible = false;
+                    }
+                    else
+                    {
+                        //En caso contrario leo la siguiente linea que contiene la hora de apagado.
+                        this.tiempo = CalcularHora(int.Parse(inputFile.ReadLine()));
+                        //Cierro flujo de salida.
+                        inputFile.Close();
 
-                    this.tiempo = CalcularHora(int.Parse(inputFile.ReadLine()));
+                        //Creo un evento para la cuenta atrás
+                        timer1 = new System.Windows.Forms.Timer();
+                        timer1.Tick += new EventHandler(Contador);
+                        timer1.Interval = 1000;
+                        timer1.Start();
+                        pCuentaAtras.Visible = true;
+                        pbEstado.Value = 0;
 
-                    inputFile.Close();
-
-                    //Creo un evento para la cuenta atrás
-                    timer1 = new System.Windows.Forms.Timer();
-                    timer1.Tick += new EventHandler(Contador);
-                    timer1.Interval = 1000;
-                    timer1.Start();
-
+                    }
+                    
                 }
-                else
+                else //En caso contrario, escribo el fichero
                 {
                     StreamWriter outputFile = new StreamWriter("timer.txt");
 
@@ -260,6 +275,8 @@ namespace ToolsPC
         #region CB CheckedChanged
         private void cbApagar_CheckedChanged(object sender, EventArgs e)
         {
+            hGuardada = dtHoraEjecucion.Value;
+
             if (cbApagar.Checked)
             {
                 cbReiniciar.Enabled = false;
@@ -284,6 +301,7 @@ namespace ToolsPC
                 cbHibernar.Enabled = false;
                 cbCerrarSesion.Enabled = false;
                 cbCancelarApagado.Enabled = false;
+                dtHoraEjecucion.Enabled = false;
             }
             else
             {
@@ -291,6 +309,8 @@ namespace ToolsPC
                 cbHibernar.Enabled = true;
                 cbCerrarSesion.Enabled = true;
                 cbCancelarApagado.Enabled = true;
+                dtHoraEjecucion.Value = hGuardada;
+                dtHoraEjecucion.Enabled = true;
             }
         }
 
@@ -302,6 +322,7 @@ namespace ToolsPC
                 cbHibernar.Enabled = false;
                 cbApagar.Enabled = false;
                 cbCancelarApagado.Enabled = false;
+                dtHoraEjecucion.Enabled = false;
             }
             else
             {
@@ -309,6 +330,8 @@ namespace ToolsPC
                 cbHibernar.Enabled = true;
                 cbApagar.Enabled = true;
                 cbCancelarApagado.Enabled = true;
+                dtHoraEjecucion.Value = hGuardada;
+                dtHoraEjecucion.Enabled = true;
             }
         }
 
@@ -320,6 +343,7 @@ namespace ToolsPC
                 cbApagar.Enabled = false;
                 cbCerrarSesion.Enabled = false;
                 cbCancelarApagado.Enabled = false;
+                dtHoraEjecucion.Enabled = false;
             }
             else
             {
@@ -327,6 +351,8 @@ namespace ToolsPC
                 cbApagar.Enabled = true;
                 cbCerrarSesion.Enabled = true;
                 cbCancelarApagado.Enabled = true;
+                dtHoraEjecucion.Value = hGuardada;
+                dtHoraEjecucion.Enabled = true;
             }
         }
 
@@ -338,6 +364,7 @@ namespace ToolsPC
                 cbReiniciar.Enabled = false;
                 cbHibernar.Enabled = false;
                 cbCerrarSesion.Enabled = false;
+                dtHoraEjecucion.Enabled = false;
             }
             else
             {
@@ -345,6 +372,8 @@ namespace ToolsPC
                 cbReiniciar.Enabled = true;
                 cbHibernar.Enabled = true;
                 cbCerrarSesion.Enabled = true;
+                dtHoraEjecucion.Enabled = true;
+                dtHoraEjecucion.Value = hGuardada;
             }
         }
         #endregion
