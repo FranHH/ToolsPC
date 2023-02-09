@@ -1,0 +1,16 @@
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\MoveMouseService.exe.config
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\MoveMouseService.exe
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\MoveMouseService.pdb
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Security.AccessControl.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Security.Permissions.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Security.Principal.Windows.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Configuration.ConfigurationManager.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Security.AccessControl.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Security.Permissions.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\bin\Debug\System.Security.Principal.Windows.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\obj\Debug\MoveMouseService.csproj.AssemblyReference.cache
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\obj\Debug\MoveMouseService.csproj.CoreCompileInputs.cache
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\obj\Debug\MoveMouseService.csproj.CopyComplete
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\obj\Debug\MoveMouseService.exe
+C:\ots\VisualStudio\ToolsPc\ToolsPC\MoveMouseService\obj\Debug\MoveMouseService.pdb

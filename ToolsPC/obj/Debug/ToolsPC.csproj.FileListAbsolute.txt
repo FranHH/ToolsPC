@@ -26,3 +26,10 @@ C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.exe.manifest
 C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.application
 C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.exe
 C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.pdb
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\System.Diagnostics.EventLog.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\System.Security.Principal.Windows.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\System.ServiceProcess.ServiceController.dll
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\System.Diagnostics.EventLog.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\System.Security.Principal.Windows.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\bin\Debug\System.ServiceProcess.ServiceController.xml
+C:\ots\VisualStudio\ToolsPc\ToolsPC\ToolsPC\obj\Debug\ToolsPC.csproj.CopyComplete
